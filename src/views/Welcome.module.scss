@@ -2,23 +2,25 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(to bottom, #5d33be 0%, #8f4cd7 100%);
 
   > header {
     flex-shrink: 0;
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-top: 66px;
+    color: #d4d4ee;
   }
 
   > main {
     flex-grow: 1;
-    border: 1px solid lightblue;
+    display: flex;
+    flex-direction: column;
   }
 
   > footer {
     flex-shrink: 0;
-    border: 1px solid yellow;
   }
 }
