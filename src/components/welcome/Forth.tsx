@@ -4,7 +4,7 @@ export const Forth = defineComponent({
   setup() {
     return () => (
       <div>
-      Forth
+        Forth
       </div>
     );
   }
