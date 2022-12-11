@@ -1,0 +1,39 @@
+.card {
+  flex-grow: 1;
+  background: var(--welcome-card-bg);
+  border-radius: 8px;
+  margin: 16px 16px 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  > h2 {
+    margin-top: 40px;
+  }
+}
+
+> .logo {
+  width: 128px;
+}
+
+.actions {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--welcome-text);
+  font-size: 24px;
+  padding: 0 16px var(--welcome-nav-gap);
+  background: var(--welcome-bg-end);
+  height: var(--welcome-nav-height);
+
+  > .fake {
+    visibility: hidden;
+  }
+}
