@@ -7,7 +7,7 @@ export const ForthActions = defineComponent({
     return () => (
       <div class={s.actions}>
         <RouterLink class={s.fake} to="/start">跳过</RouterLink>
-        <RouterLink to="/welcome/2">下一页</RouterLink>
+        <RouterLink to="/welcome/1">下一页</RouterLink>
         <RouterLink class={s.fake} to="/start">跳过</RouterLink>
       </div>
     );
