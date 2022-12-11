@@ -13,6 +13,11 @@
     justify-content: center;
     padding-top: 66px;
     color: #d4d4ee;
+
+    > svg {
+      width: 64px;
+      height: 69px;
+    }
   }
 
   > main {
@@ -41,6 +46,7 @@
 .slide_fade_enter_from {
   transform: translateX(100vw);
 }
+
 .slide_fade_leave_to {
   transform: translateX(-100vw);
 }
