@@ -15,6 +15,7 @@ export const Welcome = defineComponent({
   setup() {
     const main = ref<HTMLElement>();
     const {swiping, direction} = useSwipe(main, {
+      // 阻止背景跟着滑动
       beforeStart: (e) => e.preventDefault()
     });
     const route = useRoute();
