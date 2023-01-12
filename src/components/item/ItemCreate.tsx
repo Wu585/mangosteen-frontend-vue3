@@ -4,6 +4,7 @@ import {MainLayout} from '../../layouts/MainLayout';
 import {Icon} from '../icon/Icon';
 import {Tabs} from '../tabs/Tabs';
 import {Tab} from '../tabs/Tab';
+import {InputPad} from './InputPad';
 
 // type Item = '支出' | '收入'
 
@@ -24,6 +25,9 @@ export const ItemCreate = defineComponent({
               <Tab name="支出">1</Tab>
               <Tab name="收入">2</Tab>
             </Tabs>
+            <div class={s.inputPad_wrapper}>
+              <InputPad/>
+            </div>
           </div>
         }}
       </MainLayout>
