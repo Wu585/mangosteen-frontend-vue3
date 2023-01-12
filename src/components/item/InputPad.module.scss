@@ -1,11 +1,29 @@
-.wrapper {
+.dateAndAmount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-top: 1px solid var(--input-pad-button-border-color);
 
-  .notes {
+  > .date {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    font-family: monospace;
+    color: var(--date-text-color);
 
+    > .icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+    }
   }
 
-  .amount {
-
+  > .amount {
+    font-size: 20px;
+    font-family: monospace;
+    color: var(--amount-text-color);
   }
 }
 
@@ -21,7 +39,8 @@
     border-right: 1px solid var(--input-pad-button-border-color);
     border-bottom: 1px solid var(--input-pad-button-border-color);
     background: transparent;
-    &:nth-child(4n){
+
+    &:nth-child(4n) {
       border-right: none;
     }
   }

@@ -21,12 +21,12 @@ export const InputPad = defineComponent({
     ]
     return () => (
       <div class={s.wrapper}>
-        <div>
-          <span class={s.notes}>
-            <Icon name={'date'}/>
+        <div class={s.dateAndAmount}>
+          <span class={s.date}>
+            <Icon name={'date'} class={s.icon}/>
             <span>2022-01-01</span>
           </span>
-          <span class={s.amount}>100</span>
+          <span class={s.amount}>199.2</span>
         </div>
         <div class={s.buttons}>
           {buttons.map(item=> <button onClick={item.onClick}>{item.text}</button>)}
