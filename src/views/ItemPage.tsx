@@ -6,7 +6,6 @@ export const ItemPage = defineComponent({
   setup() {
     return () => (
       <div>
-        item page
         <RouterView/>
       </div>
     );
