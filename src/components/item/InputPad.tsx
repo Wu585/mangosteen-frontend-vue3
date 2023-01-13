@@ -65,7 +65,7 @@ export const InputPad = defineComponent({
             <Icon name={'date'} class={s.icon}/>
             <span onClick={showPopUp}>{currentDateRef.value.join('-')}</span>
             <Popup position={'bottom'} v-model:show={popUpVisibleRef.value}>
-              <DatePicker value={currentDateRef.value}
+              <DatePicker modelValue={currentDateRef.value}
                           title="选择日期" onCancel={hidePopUp}
                           onConfirm={setDate}/>
             </Popup>
