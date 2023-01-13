@@ -70,7 +70,7 @@ export const InputPad = defineComponent({
                           onConfirm={setDate}/>
             </Popup>
           </span>
-          <span class={s.amount}>199.2</span>
+          <span class={s.amount}>{refAmount.value}</span>
         </div>
         <div class={s.buttons}>
           {buttons.map(item => <button onClick={item.onClick}>{item.text}</button>)}
