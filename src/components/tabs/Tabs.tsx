@@ -4,6 +4,9 @@ import {Tab} from './Tab';
 
 export const Tabs = defineComponent({
   props: {
+    classPrefix: {
+      type: String
+    },
     selected: {
       type: String,
       required: true
@@ -21,11 +24,13 @@ export const Tabs = defineComponent({
           throw new Error('<Tabs> only accepts <Tab> as children');
         }
       }
-      return <div class={s.tabs}>
-        <ol class={s.tabs_nav}>
+      const cp = props.classPrefix;
+      return <div class={[s.tabs, cp && cp + '_tabs']}>
+        <ol class={[s.tabs_nav, cp && cp + '_tabs_nav']}>
           {tabs.map(item => <li
             onClick={() => props.onUpdateSelected?.(item.props?.name)}
-            class={props.selected === item.props?.name ? s.selected : ''}>
+            class={[props.selected === item.props?.name ? [s.selected, cp && cp + '_selected'] : '',
+              cp && cp + '_nav_item']}>
             {item.props?.name}
           </li>)}
         </ol>

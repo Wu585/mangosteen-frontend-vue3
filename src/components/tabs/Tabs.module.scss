@@ -8,13 +8,13 @@
     position: sticky;
     z-index: 1;
     top: 0;
+    background-color: var(--navbar-bg-end);
 
     > li {
       text-align: center;
       flex-grow: 1;
       flex-shrink: 0;
       padding: 12px 0;
-      background-color: var(--navbar-bg-end);
 
       &.selected {
         position: relative;
