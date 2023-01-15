@@ -9,6 +9,7 @@
   --z-index-overlay: 16;
   --transition-duration: 0.5s;
   --button-bg: #5c33be;
+  --button-danger-bg: #E10505;
   --button-text: white;
   --button-font-size: 18px;
   --button-radius: 8px;
@@ -28,12 +29,12 @@
   --date-text-color: #999;
   --inputPad-button-bg: white;
   --inputPad-button-bg-important: #5C33BE;
-  --inputPad-button-text-important:white;
+  --inputPad-button-text-important: white;
   --inputPad-button-border-color: #ddd;
   --input-min-height: 48px;
   --input-border-color: #5c33be;
   --input-radius: var(--button-radius);
-  --input-shadow: rgba(0,0,0,0.25);
+  --input-shadow: rgba(0, 0, 0, 0.25);
   --error-color: #E10505;
   --emoji-nav-text: #999;
   --emoji-nav-text-selected: #333;
