@@ -1,8 +1,13 @@
 .tabs {
+  position: relative;
+
   &_nav {
     display: flex;
     align-items: center;
     color: var(--navbar-text);
+    position: sticky;
+    z-index: 1;
+    top: 0;
 
     > li {
       text-align: center;
@@ -13,7 +18,8 @@
 
       &.selected {
         position: relative;
-        &:after{
+
+        &:after {
           content: '';
           display: block;
           position: absolute;
