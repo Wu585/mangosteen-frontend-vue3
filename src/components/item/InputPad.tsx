@@ -3,6 +3,7 @@ import s from './InputPad.module.scss';
 import {Icon} from '../icon/Icon';
 import {DatePicker, Popup} from 'vant';
 import {time} from '../../utils/time';
+import dayjs from 'dayjs';
 
 export const InputPad = defineComponent({
   setup() {
