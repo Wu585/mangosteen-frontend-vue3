@@ -15,9 +15,6 @@ import {Button} from '../button/Button';
 export const ItemList = defineComponent({
   setup() {
     const selectedTabRef = ref('本月');
-    const onUpdateSelected = (name: string) => {
-      selectedTabRef.value = name;
-    };
     const customDate = ref({
       startDate: dayjs().format('YYYY-MM-DD'),
       endDate: dayjs().format('YYYY-MM-DD'),
@@ -43,7 +40,7 @@ export const ItemList = defineComponent({
           title: () => '山竹记账',
           icon: () => <Icon name="menu" class={s.navIcon}/>,
           default: () => <>
-            <Tabs selected={selectedTabRef.value} onUpdateSelected={onUpdateSelected}>
+            <Tabs v-model:selected={selectedTabRef.value}>
               <Tab name={'本月'}>
                 <ItemSummary startDate={timeList[0].startDate} endDate={timeList[0].endDate}/>
               </Tab>

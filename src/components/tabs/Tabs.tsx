@@ -11,11 +11,9 @@ export const Tabs = defineComponent({
       type: String,
       required: true
     },
-    onUpdateSelected: {
-      type: Function as PropType<(name: string) => void>
-    }
   },
-  setup(props, {slots}) {
+  emits: ['update:selected'],
+  setup(props, {slots, emit}) {
     return () => {
       const tabs = slots.default?.();
       if (!tabs) return null;
@@ -28,7 +26,7 @@ export const Tabs = defineComponent({
       return <div class={[s.tabs, cp && cp + '_tabs']}>
         <ol class={[s.tabs_nav, cp && cp + '_tabs_nav']}>
           {tabs.map(item => <li
-            onClick={() => props.onUpdateSelected?.(item.props?.name)}
+            onClick={() => emit('update:selected', item.props?.name)}
             class={[props.selected === item.props?.name ? [s.selected, cp && cp + '_selected'] : '',
               cp && cp + '_nav_item']}>
             {item.props?.name}

@@ -11,9 +11,6 @@ import {InputPad} from './InputPad';
 export const ItemCreate = defineComponent({
   setup() {
     const selectedTabRef = ref('支出');
-    const onUpdateSelected = (name: string) => {
-      selectedTabRef.value = name;
-    };
     const refExpensesTags = ref([
       {id: 1, name: '餐费', sign: '￥', category: 'expenses'},
       {id: 2, name: '打车', sign: '￥', category: 'expenses'},
@@ -66,7 +63,7 @@ export const ItemCreate = defineComponent({
           title: () => '记一笔',
           icon: () => <Icon name="left" class={s.navIcon}/>,
           default: () => <div class={s.wrapper}>
-            <Tabs class={s.tabs} selected={selectedTabRef.value} onUpdateSelected={onUpdateSelected}>
+            <Tabs class={s.tabs} v-model:selected={selectedTabRef.value}>
               {/*<Tabs v-model:selected={selectedTabRef.value}>*/}
               <Tab name="支出" class={s.tags_wrapper}>
                 <div class={s.tag}>
