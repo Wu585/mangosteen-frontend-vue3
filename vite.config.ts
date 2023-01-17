@@ -11,4 +11,9 @@ export default defineConfig({
     }),
     svgstore()
   ],
+  server: {
+    proxy: {
+      '/api/v1': 'http://120.26.164.99:3060/'
+    }
+  }
 });

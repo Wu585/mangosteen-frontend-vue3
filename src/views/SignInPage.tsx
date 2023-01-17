@@ -5,6 +5,8 @@ import s from './SignInPage.module.scss';
 import {Form} from '../components/form/Form';
 import {FormItem} from '../components/form/FormItem';
 import {Button} from '../components/button/Button';
+import axios from 'axios';
+import {validate} from '../utils/validate';
 
 export const SignInPage = defineComponent({
   setup() {
@@ -12,12 +14,28 @@ export const SignInPage = defineComponent({
       email: '',
       validationCode: ''
     });
-    const error = reactive({
+    const errors = reactive({
       email: [],
       validationCode: []
     });
     const onSubmit = (e: Event) => {
       e.preventDefault();
+      Object.assign(errors, {
+        email: [],
+        validationCode: []
+      });
+      Object.assign(errors, validate(formData, [
+        {key: 'email', type: 'required', message: '必填'},
+        {key: 'email', type: 'pattern', regex: /.+@.+/, message: '必须是邮箱地址'},
+        {key: 'validationCode', type: 'required', message: '必填'}
+      ]));
+    };
+    const onSendValidationCode = async () => {
+      const res = await axios.post('/api/v1/validation_codes', {
+        email: formData.email
+      });
+      console.log('res');
+      console.log(res);
     };
     return () => (
       <MainLayout>
@@ -31,12 +49,13 @@ export const SignInPage = defineComponent({
             </div>
             <Form onSubmit={onSubmit}>
               <FormItem placeholder={'请输入邮箱，然后点击发送验证码'} v-model={formData.email} label={'邮箱地址'}
-                        type={'text'} error={error.email[0]}/>
+                        type={'text'} error={errors.email[0]}/>
               <FormItem placeholder={'请输入六位数字'} v-model={formData.validationCode} label={'验证码'}
                         type={'validationCode'}
-                        error={error.validationCode[0]}/>
+                        onClick={onSendValidationCode}
+                        error={errors.validationCode[0]}/>
               <FormItem style={{paddingTop: '96px'}}>
-                <Button>登录</Button>
+                <Button type={'submit'}>登录</Button>
               </FormItem>
             </Form>
           </div>
