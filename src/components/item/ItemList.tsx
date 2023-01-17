@@ -40,7 +40,8 @@ export const ItemList = defineComponent({
           title: () => '山竹记账',
           icon: () => <Icon name="menu" class={s.navIcon}/>,
           default: () => <>
-            <Tabs v-model:selected={selectedTabRef.value}>
+            <Tabs v-model:selected={selectedTabRef.value}
+                  onUpdate:selected={value => value === '自定义时间' && (refOverlayVisible.value = true)}>
               <Tab name={'本月'}>
                 <ItemSummary startDate={timeList[0].startDate} endDate={timeList[0].endDate}/>
               </Tab>
@@ -65,7 +66,7 @@ export const ItemList = defineComponent({
                     <FormItem type={'date'} v-model={customDate.value.endDate} label={'结束时间'}/>
                     <FormItem>
                       <div class={s.actions}>
-                        <button type={'button'}>取消</button>
+                        <button type={'button'} onClick={() => refOverlayVisible.value = false}>取消</button>
                         <button type={'submit'}>确定</button>
                       </div>
                     </FormItem>
