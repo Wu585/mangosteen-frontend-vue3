@@ -1,4 +1,4 @@
-import {computed, defineComponent, ref} from 'vue';
+import {computed, defineComponent, PropType, ref} from 'vue';
 import s from './EmojiList..module.scss';
 import {emojiList} from '../../utils/emojisList';
 
@@ -6,6 +6,9 @@ export const EmojiList = defineComponent({
   props: {
     modelValue: {
       type: String
+    },
+    onUpdateModelValue: {
+      type: Function as PropType<(emoji: string) => void>
     }
   },
   setup(props, {emit}) {
@@ -39,7 +42,11 @@ export const EmojiList = defineComponent({
     });
     const onClickTab = (index: number) => selectedRef.value = index;
     const onClickEmoji = (emoji: string) => {
-      emit('update:modelValue', emoji);
+      if (props.onUpdateModelValue) {
+        props.onUpdateModelValue(emoji);
+      } else {
+        emit('update:modelValue', emoji);
+      }
     };
     return () => (
       <div class={s.emojiList}>
