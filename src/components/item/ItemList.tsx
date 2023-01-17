@@ -11,6 +11,7 @@ import {Form} from '../form/Form';
 import {FormItem} from '../form/FormItem';
 import dayjs from 'dayjs';
 import {Button} from '../button/Button';
+import {OverLayIcon} from '../overlay/OverLayIcon';
 
 export const ItemList = defineComponent({
   setup() {
@@ -38,7 +39,7 @@ export const ItemList = defineComponent({
       <MainLayout>
         {{
           title: () => '山竹记账',
-          icon: () => <Icon name="menu" class={s.navIcon}/>,
+          icon: () => <OverLayIcon/>,
           default: () => <>
             <Tabs v-model:selected={selectedTabRef.value}
                   onUpdate:selected={value => value === '自定义时间' && (refOverlayVisible.value = true)}>

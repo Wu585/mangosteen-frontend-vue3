@@ -4,23 +4,19 @@ import s from './StartPage.module.scss';
 import {FloatButton} from '../components/floatbutton/FloatButton';
 import {Center} from '../components/center/Center';
 import {Icon} from '../components/icon/Icon';
-import {NavBar} from '../components/navbar/NavBar';
 import {OverLay} from '../components/overlay/OverLay';
 import {RouterLink} from 'vue-router';
 import {MainLayout} from '../layouts/MainLayout';
+import {OverLayIcon} from '../components/overlay/OverLayIcon';
 
 export const StartPage = defineComponent({
   setup() {
-    const overlayVisibleRef = ref(false);
-    const onClickMenu = () => {
-      overlayVisibleRef.value = !overlayVisibleRef.value;
-    };
     return () => (
       <div class={s.start_page}>
         <MainLayout>
           {{
             title: () => '山竹记账',
-            icon: () => <Icon name="menu" class={s.navIcon} onClick={onClickMenu}/>,
+            icon: () => <OverLayIcon/>,
             default: () => <>
               <Center class={s.pig_wrapper}>
                 <Icon name="pig" class={s.pig}/>
@@ -33,7 +29,6 @@ export const StartPage = defineComponent({
               <RouterLink to="/items/create">
                 <FloatButton iconName="add"/>
               </RouterLink>
-              {overlayVisibleRef.value && <OverLay onClose={() => overlayVisibleRef.value = false}/>}
             </>
           }}
         </MainLayout>
