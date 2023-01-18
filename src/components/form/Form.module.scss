@@ -23,6 +23,11 @@
     width: 100%;
   }
 
+  &.select {
+    border: 1px solid var(--input-border-color);
+    border-radius: var(--input-radius);
+    padding: 0 8px;
+  }
 
   &.input {
     flex-grow: 1;

@@ -14,7 +14,7 @@ export const FormItem = defineComponent({
       type: String || Number
     },
     type: {
-      type: String as PropType<'text' | 'emojiSelect' | 'date' | 'validationCode'>,
+      type: String as PropType<'text' | 'emojiSelect' | 'date' | 'validationCode' | 'select'>,
     },
     placeholder: {
       type: String
@@ -24,6 +24,9 @@ export const FormItem = defineComponent({
     },
     onClick: {
       type: Function as PropType<() => void>
+    },
+    options: {
+      type: Array as PropType<Array<{ value: string, text: string }>>
     }
   },
   emits: ['update:modelValue'],
@@ -50,6 +53,11 @@ export const FormItem = defineComponent({
                    type="text" class={[s.formItem, s.input, s.validationCodeInput, s.error]}/>
             <Button onClick={props.onClick} class={s.validationCodeButton}>发送验证码</Button>
           </>;
+        case 'select':
+          return <select class={[s.formItem, s.select]}
+                         onChange={(e: any) => context.emit('update:modelValue', e?.target.value)}>
+            {props.options?.map(option => <option value={option.value}>{option.text}</option>)}
+          </select>;
         case 'date':
           return <>
             <input placeholder={props.placeholder}
