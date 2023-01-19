@@ -5,8 +5,8 @@ import s from './SignInPage.module.scss';
 import {Form} from '../components/form/Form';
 import {FormItem} from '../components/form/FormItem';
 import {Button} from '../components/button/Button';
-import axios from 'axios';
 import {validate} from '../utils/validate';
+import {http} from '../utils/http';
 
 export const SignInPage = defineComponent({
   setup() {
@@ -30,13 +30,20 @@ export const SignInPage = defineComponent({
         {key: 'validationCode', type: 'required', message: '必填'}
       ]));
     };
-    const onSendValidationCode = async () => {
-      // const res = await axios.post('/api/v1/validation_codes', {
-      //   email: formData.email
-      // });
-      refValidationCode.value.startCount()
+    const onError = (error: any) => {
+      if (error.response.status === 422) {
+        Object.assign(errors, error.response.data.errors);
+      }
+      // 这里 throw error 就是为了防止下面的  倒计时代码执行，如果不抛出error，那么下面的倒计时还会执行
+      throw error;
     };
-    const refValidationCode = ref<any>()
+    const onSendValidationCode = async () => {
+      await http.post('/validation_codes', {
+        email: formData.email
+      }).catch(onError);
+      refValidationCode.value.startCount();
+    };
+    const refValidationCode = ref<any>();
     return () => (
       <MainLayout>
         {{
