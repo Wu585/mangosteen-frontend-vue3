@@ -37,6 +37,7 @@ export const http = new Http('/api/v1');
 http.instance.interceptors.response.use((response) => {
   return response;
 }, error => {
+  // 通用错误这里处理，业务错误外面的catch里处理
   if (error.response) {
     const axiosError = error as AxiosError;
     if (axiosError.response?.status === 429) {
