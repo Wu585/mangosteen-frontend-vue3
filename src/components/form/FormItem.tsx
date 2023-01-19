@@ -56,7 +56,7 @@ export const FormItem = defineComponent({
             value={props.modelValue}
             placeholder={props.placeholder}
             onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
-            class={[s.formItem, s.input, s.error]}/>;
+            class={[s.formItem, s.input, props.error ? s.error : '']}/>;
         case 'emojiSelect':
           return <EmojiList
             modelValue={props.modelValue?.toString()}
@@ -67,7 +67,7 @@ export const FormItem = defineComponent({
             <input placeholder={props.placeholder}
                    value={props.modelValue}
                    onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
-                   type="text" class={[s.formItem, s.input, s.validationCodeInput, s.error]}/>
+                   type="text" class={[s.formItem, s.input, s.validationCodeInput]}/>
             <Button disabled={isCounting.value} onClick={() => props.onClick?.()} class={s.validationCodeButton}>
               {isCounting.value ? `${count.value}秒后可重新发送` : '发送验证码'}
             </Button>

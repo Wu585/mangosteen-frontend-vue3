@@ -38,6 +38,10 @@ export const SignInPage = defineComponent({
       throw error;
     };
     const onSendValidationCode = async () => {
+      Object.assign(errors, {
+        email: [],
+        validationCode: []
+      });
       await http.post('/validation_codes', {
         email: formData.email
       }).catch(onError);

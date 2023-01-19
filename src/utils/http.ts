@@ -41,6 +41,8 @@ http.instance.interceptors.response.use((response) => {
     const axiosError = error as AxiosError;
     if (axiosError.response?.status === 429) {
       alert('你太频繁了');
+    } else if (axiosError.response?.status === 500) {
+      alert('服务器繁忙');
     }
   }
   // 如果不抛出错误，那么外面调用时catch不到错误，就不会走到catch里面
