@@ -1,4 +1,4 @@
-import axios, {AxiosError, AxiosInstance, AxiosRequestConfig} from 'axios';
+import axios, {AxiosError, AxiosHeaders, AxiosInstance, AxiosRequestConfig} from 'axios';
 
 type JSONValue = string | number | null | boolean | JSONValue[] | { [key: string]: JSONValue };
 
@@ -33,6 +33,14 @@ export class Http {
 }
 
 export const http = new Http('/api/v1');
+
+http.instance.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    (config.headers as AxiosHeaders).set('Authorization', `Bearer ${token}`);
+  }
+  return config;
+});
 
 http.instance.interceptors.response.use((response) => {
   return response;
