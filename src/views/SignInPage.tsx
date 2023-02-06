@@ -8,6 +8,7 @@ import {Button} from '../components/button/Button';
 import {noError, validate} from '../utils/validate';
 import {http} from '../utils/http';
 import {useBool} from '../hooks/useBool';
+import {router} from '../router';
 
 export const SignInPage = defineComponent({
   setup() {
@@ -31,7 +32,9 @@ export const SignInPage = defineComponent({
         {key: 'code', type: 'required', message: '必填'}
       ]));
       if (noError(errors)) {
-        await http.post('/session', formData);
+        const response = await http.post<{ jwt: string }>('/session', formData);
+        localStorage.setItem('jwt', response.data.jwt);
+        await router.push('/')
       }
     };
     const onError = (error: any) => {
