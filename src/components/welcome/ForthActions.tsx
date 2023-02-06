@@ -1,14 +1,17 @@
 import {defineComponent} from 'vue';
 import s from './WelcomeContent.module.scss';
 import {RouterLink} from 'vue-router';
+import {SkipFeature} from '../skip/SkipFeature';
 
 export const ForthActions = defineComponent({
   setup() {
     return () => (
       <div class={s.actions}>
-        <RouterLink class={s.fake} to="/start">跳过</RouterLink>
-        <RouterLink to="/start">下一页</RouterLink>
-        <RouterLink class={s.fake} to="/start">跳过</RouterLink>
+        <SkipFeature class={s.fake}/>
+        <span onClick={() => localStorage.setItem('skip', 'yes')}>
+          <RouterLink to="/start">完成</RouterLink>
+        </span>
+        <SkipFeature class={s.fake}/>
       </div>
     );
   }
