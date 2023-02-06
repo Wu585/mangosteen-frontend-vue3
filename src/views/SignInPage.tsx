@@ -32,9 +32,10 @@ export const SignInPage = defineComponent({
         {key: 'code', type: 'required', message: '必填'}
       ]));
       if (noError(errors)) {
-        const response = await http.post<{ jwt: string }>('/session', formData);
+        const response = await http.post<{ jwt: string }>('/session', formData).catch(onError);
         localStorage.setItem('jwt', response.data.jwt);
-        await router.push('/')
+        const returnTo = localStorage.getItem('returnTo');
+        await router.push(returnTo || '/');
       }
     };
     const onError = (error: any) => {
