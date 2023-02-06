@@ -7,6 +7,7 @@ import {FormItem} from '../components/form/FormItem';
 import {Button} from '../components/button/Button';
 import {validate} from '../utils/validate';
 import {http} from '../utils/http';
+import {useBool} from '../hooks/useBool';
 
 export const SignInPage = defineComponent({
   setup() {
@@ -37,14 +38,16 @@ export const SignInPage = defineComponent({
       // 这里 throw error 就是为了防止下面的  倒计时代码执行，如果不抛出error，那么下面的倒计时还会执行
       throw error;
     };
+    const {ref: refDisabled, toggle, on, off} = useBool(false);
     const onSendValidationCode = async () => {
+      on();
       Object.assign(errors, {
         email: [],
         validationCode: []
       });
       await http.post('/validation_codes', {
         email: formData.email
-      }).catch(onError);
+      }).catch(onError).finally(off);
       refValidationCode.value.startCount();
     };
     const refValidationCode = ref<any>();
@@ -65,6 +68,7 @@ export const SignInPage = defineComponent({
                         placeholder={'请输入六位数字'}
                         v-model={formData.validationCode} label={'验证码'}
                         type={'validationCode'}
+                        disabled={refDisabled.value}
                         countForm={3}
                         onClick={onSendValidationCode}
                         error={errors.validationCode[0]}/>
