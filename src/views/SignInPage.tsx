@@ -5,7 +5,7 @@ import s from './SignInPage.module.scss';
 import {Form} from '../components/form/Form';
 import {FormItem} from '../components/form/FormItem';
 import {Button} from '../components/button/Button';
-import {validate} from '../utils/validate';
+import {noError, validate} from '../utils/validate';
 import {http} from '../utils/http';
 import {useBool} from '../hooks/useBool';
 
@@ -13,23 +13,26 @@ export const SignInPage = defineComponent({
   setup() {
     const formData = reactive({
       email: '',
-      validationCode: ''
+      code: ''
     });
     const errors = reactive({
       email: [],
-      validationCode: []
+      code: []
     });
-    const onSubmit = (e: Event) => {
+    const onSubmit = async (e: Event) => {
       e.preventDefault();
       Object.assign(errors, {
         email: [],
-        validationCode: []
+        code: []
       });
       Object.assign(errors, validate(formData, [
         {key: 'email', type: 'required', message: '必填'},
         {key: 'email', type: 'pattern', regex: /.+@.+/, message: '必须是邮箱地址'},
-        {key: 'validationCode', type: 'required', message: '必填'}
+        {key: 'code', type: 'required', message: '必填'}
       ]));
+      if (noError(errors)) {
+        await http.post('/session', formData);
+      }
     };
     const onError = (error: any) => {
       if (error.response.status === 422) {
@@ -66,12 +69,12 @@ export const SignInPage = defineComponent({
                         type={'text'} error={errors.email[0]}/>
               <FormItem ref={refValidationCode}
                         placeholder={'请输入六位数字'}
-                        v-model={formData.validationCode} label={'验证码'}
+                        v-model={formData.code} label={'验证码'}
                         type={'validationCode'}
                         disabled={refDisabled.value}
                         countForm={3}
                         onClick={onSendValidationCode}
-                        error={errors.validationCode[0]}/>
+                        error={errors.code[0]}/>
               <FormItem style={{paddingTop: '96px'}}>
                 <Button type={'submit'}>登录</Button>
               </FormItem>
