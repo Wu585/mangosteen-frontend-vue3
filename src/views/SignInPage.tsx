@@ -9,6 +9,7 @@ import {noError, validate} from '../utils/validate';
 import {http} from '../utils/http';
 import {useBool} from '../hooks/useBool';
 import {router} from '../router';
+import {refreshMe} from '../utils/me';
 
 export const SignInPage = defineComponent({
   setup() {
@@ -35,7 +36,11 @@ export const SignInPage = defineComponent({
         const response = await http.post<{ jwt: string }>('/session', formData).catch(onError);
         localStorage.setItem('jwt', response.data.jwt);
         const returnTo = localStorage.getItem('returnTo');
-        await router.push(returnTo || '/');
+        refreshMe().then(() => {
+          router.push(returnTo || '/');
+        }, () => {
+          window.alert('登录失败');
+        });
       }
     };
     const onError = (error: any) => {

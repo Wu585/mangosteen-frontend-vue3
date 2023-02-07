@@ -35,9 +35,9 @@ export class Http {
 export const http = new Http('/api/v1');
 
 http.instance.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    (config.headers as AxiosHeaders).set('Authorization', `Bearer ${token}`);
+  const jwt = localStorage.getItem('jwt');
+  if (jwt) {
+    (config.headers as AxiosHeaders).set('Authorization', `Bearer ${jwt}`);
   }
   return config;
 });
