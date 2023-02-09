@@ -11,7 +11,7 @@ export class Http {
   }
 
   // get
-  get<R = unknown>(url: string, query?: Record<string, string>, config?: Omit<AxiosRequestConfig, 'params' | 'url' | 'method'>) {
+  get<R = unknown>(url: string, query?: Record<string, string | number>, config?: Omit<AxiosRequestConfig, 'params' | 'url' | 'method'>) {
     return this.instance.request<R>({...config, url: url, params: query, method: 'get'});
   }
 
