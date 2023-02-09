@@ -33,7 +33,7 @@ export const SignInPage = defineComponent({
         {key: 'code', type: 'required', message: '必填'}
       ]));
       if (noError(errors)) {
-        const response = await http.post<{ jwt: string }>('/session', formData, {params: {_mock: 'session'}}).catch(onError);
+        const response = await http.post<{ jwt: string }>('/session', formData).catch(onError);
         localStorage.setItem('jwt', response.data.jwt);
         const returnTo = localStorage.getItem('returnTo');
         refreshMe();
