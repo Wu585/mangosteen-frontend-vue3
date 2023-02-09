@@ -1,6 +1,5 @@
-import axios, {AxiosError, AxiosHeaders, AxiosInstance, AxiosRequestConfig} from 'axios';
-
-type JSONValue = string | number | null | boolean | JSONValue[] | { [key: string]: JSONValue };
+import axios, {AxiosError, AxiosHeaders, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
+import {mockSession} from '../mock/mock';
 
 export class Http {
   instance: AxiosInstance;
@@ -40,6 +39,46 @@ http.instance.interceptors.request.use((config) => {
     (config.headers as AxiosHeaders).set('Authorization', `Bearer ${jwt}`);
   }
   return config;
+});
+
+const mock = (response: AxiosResponse) => {
+  if (location.hostname !== 'localhost'
+    && location.hostname !== '127.0.0.1'
+    && location.hostname !== '192.168.3.57') {
+    return false;
+  }
+  switch (response.config?.params?._mock) {
+    /*case 'tagIndex':
+      [response.status, response.data] = mockTagIndex(response.config);
+      return true;
+    case 'itemCreate':
+      [response.status, response.data] = mockItemCreate(response.config);
+      return true;
+    case 'itemIndex':
+      [response.status, response.data] = mockItemIndex(response.config);
+      return true;
+    case 'tagCreate':
+      [response.status, response.data] = mockTagCreate(response.config);*/
+    case 'session':
+      [response.status, response.data] = mockSession(response.config);
+      return true;
+  }
+  return false;
+};
+
+http.instance.interceptors.response.use((response) => {
+  mock(response);
+  return response;
+}, error => {
+  console.log('error');
+  console.log(error);
+  if (mock(error.response)) {
+    console.log('error.response');
+    console.log(error.response);
+    return error.response;
+  } else {
+    throw error;
+  }
 });
 
 http.instance.interceptors.response.use((response) => {
