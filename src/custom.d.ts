@@ -7,3 +7,12 @@ type Tag = {
   sign: string,
   kind: expenses | income
 }
+
+type Resource<T = any> = {
+  resource: T[],
+  pager: {
+    page: number,
+    per_page: number,
+    count: number
+  }
+}
