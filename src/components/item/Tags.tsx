@@ -11,14 +11,21 @@ export const Tags = defineComponent({
     kind: {
       type: String as PropType<'expenses' | 'income'>,
       required: true
+    },
+    selected: {
+      type: Number
     }
   },
-  setup(props) {
+  emits: ['update:selected'],
+  setup(props, context) {
     const {tags, hasMore, fetchTags} = useTags((page) => http.get<Resource<Tag>>('/tags', {
       kind: props.kind,
       page: page + 1,
       _mock: 'tagIndex'
     }));
+    const onSelect = (tag: Tag) => {
+      context.emit('update:selected', tag.id);
+    };
     return () => (
       <>
         <div class={s.tags_wrapper}>
@@ -28,7 +35,8 @@ export const Tags = defineComponent({
             </div>
             <div class={s.name}>新增</div>
           </div>
-          {tags.value.map(tag => <div class={[s.tag, s.selected]}>
+          {tags.value.map(tag => <div onClick={() => onSelect(tag)}
+                                      class={[s.tag, props.selected === tag.id ? s.selected : '']}>
             <div class={s.sign}>{tag.sign}</div>
             <div class={s.name}>{tag.name}</div>
           </div>)}

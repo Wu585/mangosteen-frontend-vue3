@@ -11,15 +11,17 @@ export const mockSession: Mock = (config) => {
   }];
 };
 
+let id = 0;
+const createId = () => {
+  id += 1;
+  return id;
+};
+
 export const mockTagIndex: Mock = (config) => {
   const {kind, page} = config.params;
-  let id = 0;
   const per_page = 25;
   const count = 51;
-  const createId = () => {
-    id += 1;
-    return id;
-  };
+
   const createTags = (n = 1, attrs?: any) => Array.from({length: n}).map(() => ({
     id: createId(),
     name: faker.lorem.word(),
@@ -27,11 +29,13 @@ export const mockTagIndex: Mock = (config) => {
     kind,
     ...attrs
   }));
+
   const createPager = (page = 1) => ({
     page,
     per_page,
     count
   });
+
   const createBody = (n = 1, attrs?: any) => ({
     resource: createTags(n, attrs),
     pager: createPager(page)

@@ -9,7 +9,6 @@ export const Tabs = defineComponent({
     },
     selected: {
       type: String,
-      required: true
     },
   },
   emits: ['update:selected'],

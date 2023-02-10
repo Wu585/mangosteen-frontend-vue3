@@ -6,10 +6,14 @@ import {Tabs} from '../tabs/Tabs';
 import {Tab} from '../tabs/Tab';
 import {InputPad} from './InputPad';
 import {Tags} from './Tags';
+import {time} from '../../utils/time';
 
 export const ItemCreate = defineComponent({
   setup() {
     const selectedTabRef = ref('支出');
+    const refTagId = ref<number>();
+    const refHappenAt = ref(time(new Date()).format().split('-'));
+    const refAmount = ref<number>();
     return () => (
       <MainLayout class={s.layout}>
         {{
@@ -19,14 +23,15 @@ export const ItemCreate = defineComponent({
             <Tabs class={s.tabs} v-model:selected={selectedTabRef.value}>
               {/*<Tabs v-model:selected={selectedTabRef.value}>*/}
               <Tab name="支出">
-                <Tags kind={'expenses'}/>
+                <Tags kind={'expenses'} v-model:selected={refTagId.value}/>
               </Tab>
               <Tab name="收入">
-                <Tags kind={'income'}/>
+                <Tags kind={'income'} v-model:selected={refTagId.value}/>
               </Tab>
             </Tabs>
             <div class={s.inputPad_wrapper}>
-              <InputPad/>
+              {refAmount.value}
+              <InputPad v-model:happenAt={refHappenAt.value} v-model:amount={refAmount.value}/>
             </div>
           </div>
         }}
