@@ -1,5 +1,5 @@
 import axios, {AxiosError, AxiosHeaders, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
-import {mockSession, mockTagIndex} from '../mock/mock';
+import {mockItemCreate, mockSession, mockTagIndex} from '../mock/mock';
 
 export class Http {
   instance: AxiosInstance;
@@ -51,10 +51,10 @@ const mock = (response: AxiosResponse) => {
     case 'tagIndex':
       [response.status, response.data] = mockTagIndex(response.config);
       return true;
-    /*case 'itemCreate':
+    case 'itemCreate':
       [response.status, response.data] = mockItemCreate(response.config);
       return true;
-    case 'itemIndex':
+    /*case 'itemIndex':
       [response.status, response.data] = mockItemIndex(response.config);
       return true;
     case 'tagCreate':
@@ -68,16 +68,16 @@ const mock = (response: AxiosResponse) => {
 
 http.instance.interceptors.response.use((response) => {
   mock(response);
+  if (response.status >= 400) {
+    throw {response};
+  }
   return response;
 }, error => {
-  console.log('error');
-  console.log(error);
-  if (mock(error.response)) {
-    console.log('error.response');
-    console.log(error.response);
-    return error.response;
-  } else {
+  mock(error.response);
+  if (error.response.status >= 400) {
     throw error;
+  } else {
+    return error.response;
   }
 });
 

@@ -6,7 +6,10 @@ import {DatePicker, Popup} from 'vant';
 export const InputPad = defineComponent({
   props: {
     happenAt: Array as PropType<Array<string>>,
-    amount: Number
+    amount: Number,
+    onSubmit: {
+      type: Function as PropType<() => void>
+    }
   },
   emits: ['update:happenAt', 'update:amount'],
   setup(props, context) {
@@ -100,7 +103,8 @@ export const InputPad = defineComponent({
       {
         text: '提交', onClick: () => {
           context.emit('update:amount', parseFloat(refAmount.value) * 100);
-          refAmount.value = '0'
+          props.onSubmit?.()
+          refAmount.value = '0';
         }
       },
     ];
