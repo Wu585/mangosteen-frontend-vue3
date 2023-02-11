@@ -27,9 +27,29 @@ export const Tags = defineComponent({
     const onSelect = (tag: Tag) => {
       context.emit('update:selected', tag.id);
     };
+    let timer: NodeJS.Timer | undefined = undefined;
+    let currentTag: HTMLDivElement | undefined = undefined;
+    const onLongPress = () => {
+      console.log('长按');
+    };
+    const onTouchstart = (e: TouchEvent) => {
+      currentTag = e.currentTarget as HTMLDivElement;
+      timer = setTimeout(() => {
+        onLongPress();
+      }, 500);
+    };
+    const onTouchend = (e: TouchEvent) => {
+      clearTimeout(timer);
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      const pointedElement = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY);
+      if (currentTag !== pointedElement && currentTag?.contains(pointedElement) === false) {
+        clearTimeout(timer);
+      }
+    };
     return () => (
       <>
-        <div class={s.tags_wrapper}>
+        <div class={s.tags_wrapper} onTouchmove={onTouchMove}>
           <div class={s.tag}>
             <RouterLink to={`/tags/create?kind=${props.kind}`}>
               <div class={s.sign}>
@@ -38,11 +58,14 @@ export const Tags = defineComponent({
               <div class={s.name}>新增</div>
             </RouterLink>
           </div>
-          {tags.value.map(tag => <div onClick={() => onSelect(tag)}
-                                      class={[s.tag, props.selected === tag.id ? s.selected : '']}>
-            <div class={s.sign}>{tag.sign}</div>
-            <div class={s.name}>{tag.name}</div>
-          </div>)}
+          {tags.value.map(tag =>
+            <div onClick={() => onSelect(tag)}
+                 onTouchstart={onTouchstart}
+                 onTouchend={onTouchend}
+                 class={[s.tag, props.selected === tag.id ? s.selected : '']}>
+              <div class={s.sign}>{tag.sign}</div>
+              <div class={s.name}>{tag.name}</div>
+            </div>)}
         </div>
         <Center style={{padding: '16px'}}>
           {hasMore.value ? <Button onClick={fetchTags}>加载更多</Button> : <span>没有更多</span>}
