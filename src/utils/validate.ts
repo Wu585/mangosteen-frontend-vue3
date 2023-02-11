@@ -42,7 +42,7 @@ export const validate = <T extends FData>(formData: T, rules: Rules<T>): Errors<
 export const noError = (errors: Record<string, string[]>) => {
   let result = true;
   for (let key in errors) {
-    if (errors[key].length > 0) {
+    if (errors[key]?.length > 0) {
       result = false;
       break;
     }

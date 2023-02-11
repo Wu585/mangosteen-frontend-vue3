@@ -5,6 +5,7 @@ import {Center} from '../center/Center';
 import {Button} from '../button/Button';
 import {useTags} from '../../hooks/useTags';
 import {http} from '../../utils/http';
+import {RouterLink} from 'vue-router';
 
 export const Tags = defineComponent({
   props: {
@@ -30,10 +31,12 @@ export const Tags = defineComponent({
       <>
         <div class={s.tags_wrapper}>
           <div class={s.tag}>
-            <div class={s.sign}>
-              <Icon name={'add'} class={s.createTag}/>
-            </div>
-            <div class={s.name}>新增</div>
+            <RouterLink to={`/tags/create?kind=${props.kind}`}>
+              <div class={s.sign}>
+                <Icon name={'add'} class={s.createTag}/>
+              </div>
+              <div class={s.name}>新增</div>
+            </RouterLink>
           </div>
           {tags.value.map(tag => <div onClick={() => onSelect(tag)}
                                       class={[s.tag, props.selected === tag.id ? s.selected : '']}>
