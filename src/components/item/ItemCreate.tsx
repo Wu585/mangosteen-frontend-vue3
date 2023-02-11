@@ -1,17 +1,16 @@
-import {defineComponent, reactive, ref} from 'vue';
+import {defineComponent, reactive} from 'vue';
 import s from './ItemCreate.module.scss';
 import {MainLayout} from '../../layouts/MainLayout';
-import {Icon} from '../icon/Icon';
 import {Tabs} from '../tabs/Tabs';
 import {Tab} from '../tabs/Tab';
 import {InputPad} from './InputPad';
 import {Tags} from './Tags';
 import {time} from '../../utils/time';
 import {http} from '../../utils/http';
-import dayjs from 'dayjs';
 import {useRouter} from 'vue-router';
 import {showDialog} from 'vant';
 import {AxiosError} from 'axios';
+import {BackIcon} from '../back/BackIcon';
 
 type FormData = {
   kind: string,
@@ -50,7 +49,7 @@ export const ItemCreate = defineComponent({
       <MainLayout class={s.layout}>
         {{
           title: () => '记一笔',
-          icon: () => <Icon name="left" class={s.navIcon}/>,
+          icon: () => <BackIcon/>,
           default: () => <div class={s.wrapper}>
             <Tabs class={s.tabs} v-model:selected={formData.kind}>
               {/*<Tabs v-model:selected={selectedTabRef.value}>*/}

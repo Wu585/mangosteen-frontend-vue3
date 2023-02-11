@@ -10,6 +10,7 @@ import {http} from '../utils/http';
 import {useBool} from '../hooks/useBool';
 import {router} from '../router';
 import {refreshMe} from '../utils/me';
+import {BackIcon} from '../components/back/BackIcon';
 
 export const SignInPage = defineComponent({
   setup() {
@@ -64,7 +65,7 @@ export const SignInPage = defineComponent({
       <MainLayout>
         {{
           title: () => '登录',
-          icon: () => <Icon name={'left'}/>,
+          icon: () => <BackIcon class={s.navIcon}/>,
           default: () => <div class={s.wrapper}>
             <div class={s.logo}>
               <Icon class={s.icon} name={'mangosteen'}/>

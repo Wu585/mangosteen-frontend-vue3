@@ -1,8 +1,7 @@
 import {defineComponent} from 'vue';
 import {MainLayout} from '../../layouts/MainLayout';
-import {Icon} from '../icon/Icon';
-import s from './Tag.module.scss';
 import {TagForm} from './TagForm';
+import {BackIcon} from '../back/BackIcon';
 
 export const TagCreate = defineComponent({
   setup() {
@@ -10,7 +9,7 @@ export const TagCreate = defineComponent({
       <MainLayout>
         {{
           title: () => '创建标签',
-          icon: () => <Icon name={'left'} class={s.navIcon}/>,
+          icon: () => <BackIcon/>,
           default: () => <TagForm/>
         }}
       </MainLayout>
