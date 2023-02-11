@@ -5,6 +5,18 @@ type Mock = (config: AxiosRequestConfig) => [number, any]
 
 faker.setLocale('zh_CN');
 
+export const mockTagShow: Mock = () => {
+  return [200, {
+    resource: {
+      id: 1,
+      user_id: 1,
+      name: 'tag1',
+      sign: faker.internet.emoji(),
+      kind: 'expense'
+    }
+  }];
+};
+
 export const mockItemCreate: Mock = (config) => {
   /*return [422, {
     errors: {
