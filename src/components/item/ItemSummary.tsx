@@ -1,10 +1,11 @@
-import {defineComponent, onMounted, reactive, ref} from 'vue';
+import {defineComponent, onMounted, reactive, ref, watchEffect} from 'vue';
 import s from './ItemSummary.module.scss';
 import {FloatButton} from '../floatbutton/FloatButton';
 import {http} from '../../utils/http';
 import {Button} from '../button/Button';
 import {Money} from '../money/Money';
 import {DateTime} from '../datetime/DateTime';
+import {watch} from 'vue';
 
 export const ItemSummary = defineComponent({
   props: {
@@ -35,12 +36,21 @@ export const ItemSummary = defineComponent({
       page.value += 1;
     };
     onMounted(fetchItems);
+
+    watch(() => [props.startDate, props.endDate], async () => {
+      items.value = [];
+      hasMore.value = false;
+      page.value = 0;
+      await fetchItems();
+    });
+
     const itemsBalance = reactive({
       expenses: 0,
       income: 0,
       balance: 0
     });
-    onMounted(async () => {
+
+    const fetchBalance = async () => {
       if (!props.startDate || !props.endDate) {
         return;
       }
@@ -51,7 +61,19 @@ export const ItemSummary = defineComponent({
         _mock: 'itemIndexBalance'
       });
       Object.assign(itemsBalance, response.data);
+    };
+
+    onMounted(fetchBalance);
+
+    watch(() => [props.startDate, props.endDate], async () => {
+      Object.assign(itemsBalance, {
+        expenses: 0,
+        income: 0,
+        balance: 0
+      });
+      await fetchBalance();
     });
+
     return () => (
       <div class={s.wrapper}>
         {items.value.length > 0 ? <>

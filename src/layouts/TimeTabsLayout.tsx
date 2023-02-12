@@ -30,6 +30,10 @@ export const TimeTabsLayout = defineComponent({
   },
   setup(props) {
     const selectedTabRef = ref('本月');
+    const tempDate = reactive({
+      startDate: dayjs().format('YYYY-MM-DD'),
+      endDate: dayjs().format('YYYY-MM-DD'),
+    });
     const customDate = reactive<{
       startDate?: string,
       endDate?: string
@@ -51,6 +55,7 @@ export const TimeTabsLayout = defineComponent({
     const onSubmitCustomTime = (e: Event) => {
       e.preventDefault();
       refOverlayVisible.value = false;
+      Object.assign(customDate, tempDate);
     };
     return () => (
       <MainLayout>
@@ -80,8 +85,8 @@ export const TimeTabsLayout = defineComponent({
                 </header>
                 <main>
                   <Form onSubmit={onSubmitCustomTime}>
-                    <FormItem type={'date'} v-model={customDate.startDate} label={'开始时间'}/>
-                    <FormItem type={'date'} v-model={customDate.endDate} label={'结束时间'}/>
+                    <FormItem type={'date'} v-model={tempDate.startDate} label={'开始时间'}/>
+                    <FormItem type={'date'} v-model={tempDate.endDate} label={'结束时间'}/>
                     <FormItem>
                       <div class={s.actions}>
                         <button type={'button'} onClick={() => refOverlayVisible.value = false}>取消</button>
