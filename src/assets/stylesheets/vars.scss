@@ -1,5 +1,6 @@
 :root {
   --app-name-text: #7878ff;
+  --amount-text: #53a867;
   --bg: white;
   --text: #333;
   --welcome-card-bg: white;
@@ -45,7 +46,7 @@
   --tag-bg: #EFEFEF;
   --list-tag-text: #333;
   --list-amount-text: var(--amount-text);
-  --list-time-text: var(--date-text);
+  --list-time-text: var(--date-text-color);
   --total-bg: #252A43;
   --total-text: white;
   --total-income: #FE7275;

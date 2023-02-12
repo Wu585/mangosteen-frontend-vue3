@@ -3,6 +3,8 @@ import s from './ItemSummary.module.scss';
 import {FloatButton} from '../floatbutton/FloatButton';
 import {http} from '../../utils/http';
 import {Button} from '../button/Button';
+import {Money} from '../money/Money';
+import {DateTime} from '../datetime/DateTime';
 
 export const ItemSummary = defineComponent({
   props: {
@@ -50,10 +52,10 @@ export const ItemSummary = defineComponent({
                 <div class={s.text}>
                   <div class={s.tagAndAmount}>
                     <span class={s.tag}>{item.tags_id[0]}</span>
-                    <span class={s.amount}>￥<>{item.amount}</> </span>
+                    <span class={s.amount}>￥ <Money value={item.amount}/></span>
                   </div>
                   <div class={s.time}>
-                    {item.happened_at}
+                    <DateTime value={item.happened_at}/>
                   </div>
                 </div>
               </li>
