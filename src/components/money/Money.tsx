@@ -10,9 +10,10 @@ export const Money = defineComponent({
   setup(props) {
     return () => (
       <span>
-        {(props.value / 100).toFixed(2)}
+        {getMoney(props.value)}
       </span>
     );
   }
 });
 
+export const getMoney = (n: number) => (n / 100).toFixed(2);
