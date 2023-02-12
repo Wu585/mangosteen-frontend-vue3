@@ -5,6 +5,17 @@ type Mock = (config: AxiosRequestConfig) => [number, any]
 
 faker.setLocale('zh_CN');
 
+export const mockItemSummary: Mock = () => {
+  return [200, {
+    resource: [
+      {'happened_at': '2018-06-18T00:00:00.000+0800', 'amount': 100},
+      {'happened_at': '2018-06-22T00:00:00.000+0800', 'amount': 300},
+      {'happened_at': '2018-06-29T00:00:00.000+0800', 'amount': 200}
+    ],
+    total: 600
+  }];
+};
+
 export const mockItemIndexBalance: Mock = () => {
   return [200, {
     expenses: 9900,
