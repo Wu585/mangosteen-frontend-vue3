@@ -1,5 +1,12 @@
 import axios, {AxiosError, AxiosHeaders, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
-import {mockItemCreate, mockItemIndex, mockSession, mockTagIndex, mockTagShow} from '../mock/mock';
+import {
+  mockItemCreate,
+  mockItemIndex,
+  mockItemIndexBalance,
+  mockSession,
+  mockTagIndex,
+  mockTagShow
+} from '../mock/mock';
 
 export class Http {
   instance: AxiosInstance;
@@ -59,6 +66,9 @@ const mock = (response: AxiosResponse) => {
       return true;
     case 'itemIndex':
       [response.status, response.data] = mockItemIndex(response.config);
+      return true;
+    case 'itemIndexBalance':
+      [response.status, response.data] = mockItemIndexBalance(response.config);
       return true;
     case 'session':
       [response.status, response.data] = mockSession(response.config);

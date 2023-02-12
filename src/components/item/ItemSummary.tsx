@@ -1,4 +1,4 @@
-import {defineComponent, onMounted, ref} from 'vue';
+import {defineComponent, onMounted, reactive, ref} from 'vue';
 import s from './ItemSummary.module.scss';
 import {FloatButton} from '../floatbutton/FloatButton';
 import {http} from '../../utils/http';
@@ -35,13 +35,30 @@ export const ItemSummary = defineComponent({
       page.value += 1;
     };
     onMounted(fetchItems);
+    const itemsBalance = reactive({
+      expenses: 0,
+      income: 0,
+      balance: 0
+    });
+    onMounted(async () => {
+      if (!props.startDate || !props.endDate) {
+        return;
+      }
+      const response = await http.get('/items/balance', {
+        created_after: props.startDate,
+        created_before: props.endDate,
+        page: page.value + 1,
+        _mock: 'itemIndexBalance'
+      });
+      Object.assign(itemsBalance, response.data);
+    });
     return () => (
       <div class={s.wrapper}>
         {items.value.length > 0 ? <>
           <ul class={s.total}>
-            <li><span>收入</span><span>128</span></li>
-            <li><span>支出</span><span>99</span></li>
-            <li><span>净收入</span><span>39</span></li>
+            <li><span>收入</span><span>{itemsBalance.income}</span></li>
+            <li><span>支出</span><span>{itemsBalance.expenses}</span></li>
+            <li><span>净收入</span><span>{itemsBalance.balance}</span></li>
           </ul>
           <ol class={s.list}>
             {items.value.map(item =>

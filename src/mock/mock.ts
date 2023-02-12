@@ -5,6 +5,14 @@ type Mock = (config: AxiosRequestConfig) => [number, any]
 
 faker.setLocale('zh_CN');
 
+export const mockItemIndexBalance: Mock = () => {
+  return [200, {
+    expenses: 9900,
+    income: 9900,
+    balance: 0
+  }];
+};
+
 export const mockItemIndex: Mock = (config) => {
   const {kind, page} = config.params;
   const per_page = 25;
@@ -25,7 +33,7 @@ export const mockItemIndex: Mock = (config) => {
     }));
   const createBody = (n = 1, attrs?: any) => ({
     resource: createItem(n),
-    pager: createPaper(page),
+    pager: createPaper(page)
   });
   if (!page || page === 1) {
     return [200, createBody(25)];
