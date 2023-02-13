@@ -2,6 +2,15 @@
 
 }
 
+.pig {
+  width: 128px;
+  height: 128px;
+
+  &_wrapper {
+    padding: 120px 0;
+  }
+}
+
 .total {
   background: var(--total-bg);
   display: flex;

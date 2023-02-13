@@ -6,6 +6,9 @@ import {Button} from '../button/Button';
 import {Money} from '../money/Money';
 import {DateTime} from '../datetime/DateTime';
 import {watch} from 'vue';
+import {Center} from '../center/Center';
+import {Icon} from '../icon/Icon';
+import {RouterLink} from 'vue-router';
 
 export const ItemSummary = defineComponent({
   props: {
@@ -29,7 +32,7 @@ export const ItemSummary = defineComponent({
         created_before: props.endDate,
         page: page.value + 1,
         _mock: 'itemIndex'
-      });
+      }, {_autoLoading: true});
       const {resource, pager} = response.data;
       items.value.push(...resource);
       hasMore.value = (pager.page - 1) * pager.per_page + resource.length < pager.count;
@@ -103,7 +106,18 @@ export const ItemSummary = defineComponent({
           <div class={s.more}>
             {hasMore.value ? <Button onClick={fetchItems}>加载更多</Button> : <span>没有更多</span>}
           </div>
-        </> : <div>记录为空</div>}
+        </> : <>
+          <Center class={s.pig_wrapper}>
+            <Icon name="pig" class={s.pig}/>
+          </Center>
+          <div class={s.button_wrapper}>
+            <RouterLink to="/items/create">
+              <Center>
+                <Button class={s.button}>开始记账</Button>
+              </Center>
+            </RouterLink>
+          </div>
+        </>}
         <FloatButton iconName="add"/>
       </div>
     );

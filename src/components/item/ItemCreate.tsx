@@ -41,7 +41,7 @@ export const ItemCreate = defineComponent({
       await http.post<Resource<Item>>('/items', {
         ...formData,
         happened_at: formData.happened_at.join('-')
-      }, {params: {_mock: 'itemCreate'}}).catch(onError);
+      }, {params: {_mock: 'itemCreate'}, _autoLoading: true}).catch(onError);
       await router.push('/items');
       // console.log(dayjs(formData.happened_at.join('-')).toISOString());
     };

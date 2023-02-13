@@ -50,9 +50,11 @@ export const TagForm = defineComponent({
         const promise = props.id ?
           http.patch(`/tags/${props.id}`, formData, {
             // params: {_mock: 'tagEdit'}
+            _autoLoading: true
           }) :
           http.post('/tags', formData, {
-            params: {mock: 'tagCreate'}
+            params: {_mock: 'tagCreate'},
+            _autoLoading: true
           });
         promise.catch((error) => {
           onFormError(error, (data) => Object.assign(errors, data.errors));
