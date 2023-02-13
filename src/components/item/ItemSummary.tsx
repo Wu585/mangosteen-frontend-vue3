@@ -31,6 +31,7 @@ export const ItemSummary = defineComponent({
         created_after: props.startDate,
         created_before: props.endDate,
         page: page.value + 1,
+        per_page: 25,
         _mock: 'itemIndex'
       }, {_autoLoading: true});
       const {resource, pager} = response.data;

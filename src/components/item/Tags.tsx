@@ -23,6 +23,7 @@ export const Tags = defineComponent({
     const {tags, hasMore, fetchTags} = useTags((page) => http.get<Resources<Tag>>('/tags', {
       kind: props.kind,
       page: page + 1,
+      per_page: 25,
       _mock: 'tagIndex'
     }));
     const onSelect = (tag: Tag) => {
