@@ -1,4 +1,4 @@
-import {computed, defineComponent, onMounted, ref} from 'vue';
+import {computed, defineComponent, onMounted, ref, watch} from 'vue';
 import {Form} from '../form/Form';
 import {FormItem} from '../form/FormItem';
 import s from './Charts.module.scss';
@@ -35,7 +35,7 @@ export const Charts = defineComponent({
     }
   },
   setup(props) {
-    const kind = ref('expense');
+    const kind = ref<'income' | 'expenses'>('expenses');
     const data1 = ref<Data1>([]);
     const betterData1 = computed<[string, number][]>(() => {
       if (!props.startDate || !props.endDate) {
@@ -56,7 +56,8 @@ export const Charts = defineComponent({
       }
       return array;
     });
-    onMounted(async () => {
+
+    const fetchData1 = async () => {
       if (!props.startDate || !props.endDate) {
         return;
       }
@@ -68,12 +69,17 @@ export const Charts = defineComponent({
         _mock: 'itemSummary'
       });
       data1.value = response.data.resource;
-    });
+    };
+
+    onMounted(fetchData1);
+
+    watch(() => kind.value, fetchData1);
 
     const data2 = ref<Data2>([]);
     const betterData2 = computed<{ name: string, value: number }[]>(() =>
       data2.value.map(item => ({name: item.tag.name, value: item.amount})));
-    onMounted(async () => {
+
+    const fetchData2 = async () => {
       if (!props.startDate || !props.endDate) {
         return;
       }
@@ -85,7 +91,9 @@ export const Charts = defineComponent({
         _mock: 'itemSummary'
       });
       data2.value = response.data.resource;
-    });
+    };
+    onMounted(fetchData2);
+    watch(() => kind.value, fetchData2);
 
     const betterData3 = computed<{ tag: Tag, amount: number, percent: number }[]>(() => {
       const total = data2.value.reduce((sum, item) => sum + item.amount, 0);
@@ -99,7 +107,7 @@ export const Charts = defineComponent({
       <div class={s.wrapper}>
         <Form>
           <FormItem label={'类型'} type={'select'} options={[
-            {value: 'expense', text: '支出'},
+            {value: 'expenses', text: '支出'},
             {value: 'income', text: '收入'}
           ]} v-model={kind.value}/>
         </Form>
