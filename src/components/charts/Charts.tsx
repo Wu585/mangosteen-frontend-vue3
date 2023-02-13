@@ -15,6 +15,14 @@ type Data1Item = {
 
 type Data1 = Data1Item[]
 
+type Data2Item = {
+  tag_id: number
+  tag: Tag
+  amount: number
+}
+
+type Data2 = Data2Item[]
+
 const DAY = 24 * 3600 * 1000;
 
 export const Charts = defineComponent({
@@ -27,7 +35,7 @@ export const Charts = defineComponent({
     }
   },
   setup(props) {
-    const category = ref('expense');
+    const kind = ref('expense');
     const data1 = ref<Data1>([]);
     const betterData1 = computed<[string, number][]>(() => {
       if (!props.startDate || !props.endDate) {
@@ -49,8 +57,34 @@ export const Charts = defineComponent({
       return array;
     });
     onMounted(async () => {
-      const response = await http.get<{ resource: Data1, total: number }>('/items/summary', {_mock: 'itemSummary'});
+      if (!props.startDate || !props.endDate) {
+        return;
+      }
+      const response = await http.get<{ resource: Data1, total: number }>('/items/summary', {
+        happened_after: props.startDate,
+        happened_before: props.endDate,
+        kind: kind.value,
+        group_by: 'happened_at',
+        _mock: 'itemSummary'
+      });
       data1.value = response.data.resource;
+    });
+
+    const data2 = ref<Data2>([]);
+    const betterData2 = computed<{ name: string, value: number }[]>(() =>
+      data2.value.map(item => ({name: item.tag.name, value: item.amount})));
+    onMounted(async () => {
+      if (!props.startDate || !props.endDate) {
+        return;
+      }
+      const response = await http.get<{ resource: Data2, total: number }>('/items/summary', {
+        happened_after: props.startDate,
+        happened_before: props.endDate,
+        kind: kind.value,
+        group_by: 'tag_id',
+        _mock: 'itemSummary'
+      });
+      data2.value = response.data.resource;
     });
 
     return () => (
@@ -59,10 +93,10 @@ export const Charts = defineComponent({
           <FormItem label={'类型'} type={'select'} options={[
             {value: 'expense', text: '支出'},
             {value: 'income', text: '收入'}
-          ]} v-model={category.value}/>
+          ]} v-model={kind.value}/>
         </Form>
         <LineChart data={betterData1.value}/>
-        <PieCharts/>
+        <PieCharts data={betterData2.value}/>
         <Bars/>
       </div>
     );
