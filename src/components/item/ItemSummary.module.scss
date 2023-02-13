@@ -1,13 +1,11 @@
 .wrapper {
+  .pig {
+    width: 128px;
+    height: 128px;
 
-}
-
-.pig {
-  width: 128px;
-  height: 128px;
-
-  &_wrapper {
-    padding: 120px 0;
+    &_wrapper {
+      padding: 120px 0;
+    }
   }
 }
 
@@ -85,6 +83,6 @@
 }
 
 .more {
-  padding-top: 32px;
+  padding: 20px;
   text-align: center;
 }

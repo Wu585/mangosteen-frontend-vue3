@@ -9,7 +9,7 @@ export const ForthActions = defineComponent({
       <div class={s.actions}>
         <SkipFeature class={s.fake}/>
         <span onClick={() => localStorage.setItem('skip', 'yes')}>
-          <RouterLink to="/start">完成</RouterLink>
+          <RouterLink to="/items">完成</RouterLink>
         </span>
         <SkipFeature class={s.fake}/>
       </div>

@@ -1,4 +1,4 @@
-import {defineComponent, onMounted, reactive, ref, watchEffect} from 'vue';
+import {defineComponent, onMounted, reactive, ref} from 'vue';
 import s from './ItemSummary.module.scss';
 import {FloatButton} from '../floatbutton/FloatButton';
 import {http} from '../../utils/http';
@@ -110,15 +110,16 @@ export const ItemSummary = defineComponent({
           <Center class={s.pig_wrapper}>
             <Icon name="pig" class={s.pig}/>
           </Center>
-          <div class={s.button_wrapper}>
+          <Center class={s.button_wrapper}>
             <RouterLink to="/items/create">
-              <Center>
-                <Button class={s.button}>开始记账</Button>
-              </Center>
+              <Button class={s.button}>开始记账</Button>
             </RouterLink>
-          </div>
+          </Center>
+          <FloatButton iconName="add"/>
         </>}
-        <FloatButton iconName="add"/>
+        <RouterLink to={'/items/create'}>
+          <FloatButton iconName="add"/>
+        </RouterLink>
       </div>
     );
   }
