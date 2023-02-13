@@ -57,7 +57,7 @@ export const SignInPage = defineComponent({
       });
       await http.post('/validation_codes', {
         email: formData.email
-      }).catch(onError).finally(off);
+      }, {_autoLoading: true}).catch(onError).finally(off);
       refValidationCode.value.startCount();
     };
     const refValidationCode = ref<any>();

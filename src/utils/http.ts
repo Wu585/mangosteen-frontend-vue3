@@ -7,6 +7,7 @@ import {
   mockTagIndex,
   mockTagShow
 } from '../mock/mock';
+import {closeToast, showLoadingToast} from 'vant';
 
 export class Http {
   instance: AxiosInstance;
@@ -45,6 +46,13 @@ http.instance.interceptors.request.use((config) => {
   if (jwt) {
     (config.headers as AxiosHeaders).set('Authorization', `Bearer ${jwt}`);
   }
+  if (config._autoLoading) {
+    showLoadingToast({
+      message: '加载中...',
+      forbidClick: true,
+      duration: 0
+    });
+  }
   return config;
 });
 
@@ -79,6 +87,18 @@ const mock = (response: AxiosResponse) => {
   }
   return false;
 };
+
+http.instance.interceptors.response.use((response) => {
+  if (response.config._autoLoading) {
+    closeToast();
+  }
+  return response;
+}, (error) => {
+  if (error.response.config._autoLoading) {
+    closeToast();
+  }
+  throw error;
+});
 
 http.instance.interceptors.response.use((response) => {
   mock(response);
