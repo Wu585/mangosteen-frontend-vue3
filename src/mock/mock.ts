@@ -8,9 +8,9 @@ faker.setLocale('zh_CN');
 export const mockItemSummary: Mock = () => {
   return [200, {
     resource: [
-      {'happened_at': '2018-06-18T00:00:00.000+0800', 'amount': 100},
-      {'happened_at': '2018-06-22T00:00:00.000+0800', 'amount': 300},
-      {'happened_at': '2018-06-29T00:00:00.000+0800', 'amount': 200}
+      {'happened_at': '2023-02-18T00:00:00.000+0800', 'amount': 100},
+      {'happened_at': '2023-02-22T00:00:00.000+0800', 'amount': 300},
+      {'happened_at': '2023-02-28T00:00:00.000+0800', 'amount': 200}
     ],
     total: 600
   }];
