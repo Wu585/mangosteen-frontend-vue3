@@ -22,13 +22,13 @@ export const TagEdit = defineComponent({
       });
       throw error;
     };
-    const onDelete = async (options?: { withItems?: boolean }) => {
+    const onDelete = async (options?: { with_items?: boolean }) => {
       await showConfirmDialog({
         title: '删除',
         message: '你真的要删除吗？'
       });
       await http.delete(`/tags/${numberId}`, {
-        withItems: options?.withItems ? 'true' : 'false'
+        with_items: options?.with_items ? 'true' : 'false'
       }, {_autoLoading: true}).catch(onError);
       router.back();
     };
@@ -46,7 +46,7 @@ export const TagEdit = defineComponent({
               >删除标签</Button>
               <Button level={'danger'}
                       class={s.removeTagsAndItems}
-                      onClick={() => onDelete({withItems: true})}
+                      onClick={() => onDelete({with_items: true})}
               >删除标签和记账</Button>
             </div>
           </>

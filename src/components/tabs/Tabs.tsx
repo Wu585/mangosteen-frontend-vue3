@@ -30,7 +30,7 @@ export const Tabs = defineComponent({
         <ol class={[s.tabs_nav, cp && cp + '_tabs_nav']}>
           {tabs.map(item => <li
             onClick={() => emit('update:selected', item.props?.value)}
-            class={[props.selected === item.props?.name ? [s.selected, cp && cp + '_selected'] : '',
+            class={[props.selected === item.props?.value ? [s.selected, cp && cp + '_selected'] : '',
               cp && cp + '_nav_item']}>
             {item.props?.name}
           </li>)}
