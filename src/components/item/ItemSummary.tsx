@@ -28,8 +28,8 @@ export const ItemSummary = defineComponent({
         return;
       }
       const response = await http.get<Resources<Item>>('/items', {
-        created_after: props.startDate,
-        created_before: props.endDate,
+        happened_after: props.startDate,
+        happened_before: props.endDate,
         page: page.value + 1,
         per_page: 25,
         _mock: 'itemIndex'
@@ -59,8 +59,8 @@ export const ItemSummary = defineComponent({
         return;
       }
       const response = await http.get('/items/balance', {
-        created_after: props.startDate,
-        created_before: props.endDate,
+        happened_after: props.startDate,
+        happened_before: props.endDate,
         page: page.value + 1,
         _mock: 'itemIndexBalance'
       });
@@ -82,9 +82,9 @@ export const ItemSummary = defineComponent({
       <div class={s.wrapper}>
         {items.value.length > 0 ? <>
           <ul class={s.total}>
-            <li><span>收入</span><span>{itemsBalance.income}</span></li>
-            <li><span>支出</span><span>{itemsBalance.expenses}</span></li>
-            <li><span>净收入</span><span>{itemsBalance.balance}</span></li>
+            <li><span>收入</span><span> ￥ <Money value={itemsBalance.income}/> </span></li>
+            <li><span>支出</span><span> ￥ <Money value={itemsBalance.expenses}/></span></li>
+            <li><span>净收入</span><span> ￥ <Money value={itemsBalance.balance}/></span></li>
           </ul>
           <ol class={s.list}>
             {items.value.map(item =>

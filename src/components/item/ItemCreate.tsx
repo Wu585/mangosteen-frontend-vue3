@@ -13,7 +13,7 @@ import {AxiosError} from 'axios';
 import {BackIcon} from '../back/BackIcon';
 
 type FormData = {
-  kind: string,
+  kind: 'expenses' | 'income',
   tags_id: number[],
   happened_at: string[],
   amount: number
@@ -23,7 +23,7 @@ export const ItemCreate = defineComponent({
   setup() {
     const router = useRouter();
     const formData = reactive<FormData>({
-      kind: '支出',
+      kind: 'expenses',
       tags_id: [],
       happened_at: time(new Date()).format().split('-'),
       amount: 0
@@ -53,10 +53,10 @@ export const ItemCreate = defineComponent({
           default: () => <div class={s.wrapper}>
             <Tabs class={s.tabs} v-model:selected={formData.kind}>
               {/*<Tabs v-model:selected={selectedTabRef.value}>*/}
-              <Tab name="支出">
+              <Tab value={'expenses'} name="支出">
                 <Tags kind={'expenses'} v-model:selected={formData.tags_id[0]}/>
               </Tab>
-              <Tab name="收入">
+              <Tab value={'income'} name="收入">
                 <Tags kind={'income'} v-model:selected={formData.tags_id[0]}/>
               </Tab>
             </Tabs>

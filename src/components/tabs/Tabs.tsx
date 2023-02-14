@@ -29,17 +29,17 @@ export const Tabs = defineComponent({
       return <div class={[s.tabs, cp && cp + '_tabs']}>
         <ol class={[s.tabs_nav, cp && cp + '_tabs_nav']}>
           {tabs.map(item => <li
-            onClick={() => emit('update:selected', item.props?.name)}
+            onClick={() => emit('update:selected', item.props?.value)}
             class={[props.selected === item.props?.name ? [s.selected, cp && cp + '_selected'] : '',
               cp && cp + '_nav_item']}>
             {item.props?.name}
           </li>)}
         </ol>
         {props.rerenderOnSelect ? <div key={props.selected}>
-            {tabs.find(item => item.props?.name === props.selected)}
+            {tabs.find(item => item.props?.value === props.selected)}
           </div> :
           <div>
-            {tabs.map(item => <div v-show={item.props?.name === props.selected}>
+            {tabs.map(item => <div v-show={item.props?.value === props.selected}>
               {item}
             </div>)}
           </div>}

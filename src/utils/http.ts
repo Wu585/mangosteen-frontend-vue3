@@ -57,7 +57,7 @@ http.instance.interceptors.request.use((config) => {
 });
 
 const mock = (response: AxiosResponse) => {
-  if (location.hostname !== 'localhost'
+  if (true || location.hostname !== 'localhost'
     && location.hostname !== '127.0.0.1'
     && location.hostname !== '192.168.3.57') {
     return false;
