@@ -39,3 +39,5 @@ type User = {
   id: number
   email: string
 }
+
+declare var DEBUG: boolean;
