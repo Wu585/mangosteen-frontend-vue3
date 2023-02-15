@@ -51,15 +51,18 @@ export const TagForm = defineComponent({
           http.patch(`/tags/${props.id}`, formData, {
             // params: {_mock: 'tagEdit'}
             _autoLoading: true
+          }).then(() => {
+            router.back();
           }) :
           http.post('/tags', formData, {
             params: {_mock: 'tagCreate'},
             _autoLoading: true
+          }).then(() => {
+            router.back();
           });
         promise.catch((error) => {
           onFormError(error, (data) => Object.assign(errors, data.errors));
         });
-        router.back();
       }
     };
     onMounted(async () => {
