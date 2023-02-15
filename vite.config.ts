@@ -15,5 +15,25 @@ export default defineConfig({
     proxy: {
       '/api/v1': 'http://120.26.164.99:3060/'
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id: any) {
+          if (id.includes('echarts')) {
+            return 'echarts';
+          }
+          if (id.includes('mock') || id.includes('faker')) {
+            return 'mock';
+          }
+          if (id.includes('vant')) {
+            return 'vant';
+          }
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        }
+      }
+    }
   }
 });
