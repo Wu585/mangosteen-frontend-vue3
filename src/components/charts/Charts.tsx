@@ -47,7 +47,7 @@ export const Charts = defineComponent({
       let data1Index = 0;
       for (let i = 0; i < n; i++) {
         const time = dayjs(props.startDate).add(i, 'day').unix() * 1000; // js时间戳 毫秒
-        if (data1.value[data1Index] && (new Date(data1.value[data1Index].happened_at).getTime()) === time) {
+        if (data1.value[data1Index] && (new Date(data1.value[data1Index].happened_at + 'T00:00:00.000+0800').getTime()) === time) {
           array.push([dayjs(time).toISOString(), data1.value[data1Index].amount]);
           data1Index += 1;
         } else {
