@@ -7,6 +7,8 @@ import {PieCharts} from './PieCharts';
 import {Bars} from './Bars';
 import {http} from '../../utils/http';
 import dayjs from 'dayjs';
+import {FloatButton} from '../floatbutton/FloatButton';
+import {RouterLink} from 'vue-router';
 
 type Data1Item = {
   happened_at: string
@@ -114,6 +116,9 @@ export const Charts = defineComponent({
         <LineChart data={betterData1.value}/>
         <PieCharts data={betterData2.value}/>
         <Bars data={betterData3.value}/>
+        <RouterLink to={'/items/create'}>
+          <FloatButton iconName="add"/>
+        </RouterLink>
       </div>
     );
   }

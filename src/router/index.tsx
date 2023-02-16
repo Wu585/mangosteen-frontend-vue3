@@ -15,7 +15,7 @@ router.beforeEach(async (to, from) => {
   } else {
     return await mePromise!.then(() => true,
       () => {
-        localStorage.setItem('returnTo', to.path);
+        localStorage.setItem('returnTo', from.path);
         return '/sign_in';
       });
   }

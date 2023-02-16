@@ -1343,6 +1343,11 @@ vant@^4.0.7:
     "@vant/popperjs" "^1.3.0"
     "@vant/use" "^1.4.3"
 
+vite-svg-sprite-plugin@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.npmjs.org/vite-svg-sprite-plugin/-/vite-svg-sprite-plugin-0.0.1.tgz#1b9fc8dde1c8b5d13fcf6702ed4aefed8dc00e1d"
+  integrity sha512-9Bz0TOoaQv3H1Bwmf6NBTYR0e67I7cdGrgcqf0ucK9tvTFDvgUKCtPVf0v/rXjH7t9t5PeqZrcmEmEF3GwXd3Q==
+
 vite@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmmirror.com/vite/-/vite-4.0.0.tgz#b81b88349a06b2faaa53ae14cf96c942548e3454"

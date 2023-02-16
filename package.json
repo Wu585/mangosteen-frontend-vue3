@@ -17,6 +17,7 @@
     "svgo": "^3.0.2",
     "svgstore": "^3.0.1",
     "vant": "^4.0.7",
+    "vite-svg-sprite-plugin": "^0.0.1",
     "vue": "^3.2.45",
     "vue-router": "4"
   },

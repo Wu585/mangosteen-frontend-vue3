@@ -32,7 +32,7 @@ export const Tags = defineComponent({
     let timer: NodeJS.Timer | undefined = undefined;
     let currentTag: HTMLDivElement | undefined = undefined;
     const onLongPress = async (tagId: Tag['id']) => {
-      localStorage.setItem('returnTo', router.currentRoute.value.fullPath);
+      // localStorage.setItem('returnTo', router.currentRoute.value.fullPath);
       await router.push(`/tags/${tagId}/edit?kind=${props.kind}`);
     };
     const onTouchstart = (e: TouchEvent, tag: Tag) => {
