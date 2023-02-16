@@ -1,4 +1,4 @@
-import {defineComponent, onMounted, reactive, ref} from 'vue';
+import {defineComponent, reactive, ref} from 'vue';
 import s from './ItemSummary.module.scss';
 import {FloatButton} from '../floatbutton/FloatButton';
 import {http} from '../../utils/http';
@@ -9,6 +9,7 @@ import {watch} from 'vue';
 import {Center} from '../center/Center';
 import {Icon} from '../icon/Icon';
 import {RouterLink} from 'vue-router';
+import {useAfterMe} from '../../hooks/useAfterMe';
 
 export const ItemSummary = defineComponent({
   props: {
@@ -39,7 +40,7 @@ export const ItemSummary = defineComponent({
       hasMore.value = (pager.page - 1) * pager.per_page + resource.length < pager.count;
       page.value += 1;
     };
-    onMounted(fetchItems);
+    useAfterMe(fetchItems);
 
     watch(() => [props.startDate, props.endDate], async () => {
       items.value = [];
@@ -67,7 +68,7 @@ export const ItemSummary = defineComponent({
       Object.assign(itemsBalance, response.data);
     };
 
-    onMounted(fetchBalance);
+    useAfterMe(fetchBalance);
 
     watch(() => [props.startDate, props.endDate], async () => {
       Object.assign(itemsBalance, {
