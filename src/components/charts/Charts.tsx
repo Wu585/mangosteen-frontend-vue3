@@ -98,7 +98,6 @@ export const Charts = defineComponent({
     watch(() => kind.value, fetchData2);
 
     watch(() => [props.startDate, props.endDate], () => {
-      console.log('watch startdate');
       fetchData1();
       fetchData2();
     });
