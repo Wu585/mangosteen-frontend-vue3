@@ -10,6 +10,7 @@ import {Center} from '../center/Center';
 import {Icon} from '../icon/Icon';
 import {RouterLink} from 'vue-router';
 import {useAfterMe} from '../../hooks/useAfterMe';
+import dayjs from 'dayjs';
 
 export const ItemSummary = defineComponent({
   props: {
@@ -88,22 +89,24 @@ export const ItemSummary = defineComponent({
             <li><span>净收入</span><span> ￥ <Money value={itemsBalance.balance}/></span></li>
           </ul>
           <ol class={s.list}>
-            {items.value.map(item =>
-              <li>
-                <div class={s.sign}>
-                  <span>{(item.tags && item.tags.length > 0) ? item.tags[0].sign : '💰'}</span>
-                </div>
-                <div class={s.text}>
-                  <div class={s.tagAndAmount}>
-                    <span class={s.tag}>{(item.tags && item.tags.length > 0) ? item.tags[0].name : '未分类'}</span>
-                    <span class={s.amount}>￥ <Money value={item.amount}/></span>
+            {items.value.sort((a, b) => dayjs(a.happened_at).unix() - dayjs(b.happened_at).unix())
+              .map(item =>
+                <li>
+                  <div class={s.sign}>
+                    <span>{(item.tags && item.tags.length > 0) ? item.tags[0].sign : '💰'}</span>
                   </div>
-                  <div class={s.time}>
-                    <DateTime value={item.happened_at} format={'YYYY-MM-DD'}/>
+                  <div class={s.text}>
+                    <div class={s.tagAndAmount}>
+                      <span class={s.tag}>{(item.tags && item.tags.length > 0) ? item.tags[0].name : '未分类'}</span>
+                      <span class={s.amount}>￥ <span>{item.kind === 'expenses' ? '-' : '+'}</span><Money
+                        value={item.amount}/></span>
+                    </div>
+                    <div class={s.time}>
+                      <DateTime value={item.happened_at} format={'YYYY-MM-DD'}/>
+                    </div>
                   </div>
-                </div>
-              </li>
-            )}
+                </li>
+              )}
           </ol>
           <div class={s.more}>
             {hasMore.value ? <Button onClick={fetchItems}>加载更多</Button> : <span>没有更多</span>}

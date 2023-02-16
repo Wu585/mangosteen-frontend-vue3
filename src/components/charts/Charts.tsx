@@ -97,6 +97,12 @@ export const Charts = defineComponent({
     onMounted(fetchData2);
     watch(() => kind.value, fetchData2);
 
+    watch(() => [props.startDate, props.endDate], () => {
+      console.log('watch startdate');
+      fetchData1();
+      fetchData2();
+    });
+
     const betterData3 = computed<{ tag: Tag, amount: number, percent: number }[]>(() => {
       const total = data2.value.reduce((sum, item) => sum + item.amount, 0);
       return data2.value.map(item => ({

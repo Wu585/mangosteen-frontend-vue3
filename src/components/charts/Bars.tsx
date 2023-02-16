@@ -1,6 +1,7 @@
 import {computed, defineComponent, PropType, reactive} from 'vue';
 import s from './Bars.module.scss';
 import {Money} from '../money/Money';
+import {Center} from '../center/Center';
 
 export const Bars = defineComponent({
   props: {
@@ -26,7 +27,7 @@ export const Bars = defineComponent({
               </div>
             </div>
           );
-        }) : <div>没有数据</div>}
+        }) : <Center>没有数据</Center>}
       </div>
     );
   }
